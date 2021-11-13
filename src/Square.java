@@ -22,34 +22,54 @@ public class Square {
         int col = ship.getStartCol();
     }
 
-    public boolean hasShip() {
-        boolean hasShip = false;
+    public void hasShip() {
+        boolean hasShip;
+        if(this.ship != null) {
+             hasShip = true;
+        } else {
+             hasShip = false;
+        }
     }
 
-    public Ship getShip()
-    {
-        Ship obj = null;
-        return obj;
+    public Ship getShip() {
+        if(this.ship != null) {
+            return ship;
+        } else {
+            return null;
+        }
     }
 
     public void fireAt() {
+        this.hasBeenHit = true;
+        ship.hit();
+        throw new IllegalStateException("Already hit");
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Square square = (Square) o;
-        return hasBeenHit == square.hasBeenHit;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(hasBeenHit);
+        boolean isEqual = false;
+        if (o instanceof Square) {
+            Square otherSquare = (Square) o;
+            if (hasBeenHit == otherSquare.hasBeenHit && ship == otherSquare.ship) {
+                return isEqual = true;
+            }
+        }
+        return isEqual;
     }
 
     @Override
     public String toString() {
-        return "Square{}";
+        String s = "";
+        if(this.ship == null && this.hasBeenHit == false) {
+            s = "-";
+        } else if(this.ship == null && this.hasBeenHit == true) {
+            s = "W";
+        } else if(this.ship != null && this.hasBeenHit == true) {
+            s = "R";
+        } else if(this.ship != null && this.hasBeenHit == false) {
+            int l = ship.getLength();
+            s = String.valueOf(l);
+        }
+        return s;
     }
 }
