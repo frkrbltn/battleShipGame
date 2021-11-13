@@ -12,8 +12,15 @@ public class Ship {
 
     public Ship(int length, boolean isHorizontal, int startRow, int startCol)
     {
-        try {
 
+
+        if (length < 1) {
+            throw new IllegalArgumentException("Invalid length");
+        } else if(startRow < 0) {
+            throw new IllegalArgumentException("Invalid row");
+        } else if(startCol < 0) {
+            throw new IllegalArgumentException("Invalid col");
+        } else {
             /* The length of the ship */
             this.length = length;
             /* The number of times the ship has been hit */
@@ -26,16 +33,8 @@ public class Ship {
             /* The columns of the game board */
             this.startCol = startCol;
         }
-        catch (IllegalArgumentException e) {
 
-            if (length < 1) {
-                System.out.println("Invalid length");
-            } else if(startRow < 0) {
-                System.out.println("Invalid row");
-            } else if(startCol < 0) {
-                System.out.println("Invalid col");
-            }
-        }
+
     }
 
     public boolean isHorizontal() {
@@ -57,16 +56,13 @@ public class Ship {
     public boolean isSunk()
     {
         return this.hits == this.length;
-
     }
 
     public void hit() {
-        try {
+        if (this.hits >= length) {
+            throw new IllegalStateException("Too many hits");
+        } else{
             this.hits++;
-        } catch (IllegalStateException e) {
-            if (this.hits > length) {
-                System.out.println("Too many hits");
-            }
         }
     }
 
@@ -85,10 +81,16 @@ public class Ship {
 
     @Override
     public String toString() {
-        return  "length: " + length +
-                "\nLocation: (" + startRow + "," + startCol + ")" +
-                "\nOrientation: " + isHorizontal +
-                "\nhits: " + hits +
-                "\nsunk: " + isSunk();
+        String s =  "Length: " + length +
+                "\nLocation: (" + startRow + "," + startCol + ")";
+                if (isHorizontal == true)
+                    s = s + "\nOrientation: " + "Horizontal";
+                else
+                    s = s + "\nOrientation: " + "Vertical";
+
+                s = s + "\nNumber of hits: " + hits +
+                "\nSunk: " + isSunk();
+
+                return s;
     }
 }
