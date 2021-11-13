@@ -3,22 +3,27 @@ import java.util.*;
 public class Square {
 
     private boolean hasBeenHit;
+    private Ship ship;
 
-    public Square()
-    {
-
+    public Square( boolean hasBeenHit, Ship ship) {
+        this.hasBeenHit = hasBeenHit;
+        this.ship = ship;
     }
 
     public boolean hasBeenHit() {
         return hasBeenHit;
     }
 
-    public void addShip(Ship obj) {
+    public void addShip(Ship ship) {
 
+        int length = ship.getLength();
+        boolean orientation = ship.isHorizontal();
+        int row = ship.getStartRow();
+        int col = ship.getStartCol();
     }
 
     public boolean hasShip() {
-        return hasBeenHit;
+        boolean hasShip = false;
     }
 
     public Ship getShip()
