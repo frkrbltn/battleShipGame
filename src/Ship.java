@@ -61,7 +61,7 @@ public class Ship {
     public void hit() {
         if (this.hits >= length) {
             throw new IllegalStateException("Too many hits");
-        } else{
+        } else {
             this.hits++;
         }
     }
