@@ -8,59 +8,86 @@ public class Ship {
     private int startRow;
     private int startCol;
 
-    public Ship(int x,boolean y,int z,int d)
-    {
 
+
+    public Ship(int length, boolean isHorizontal, int startRow, int startCol)
+    {
+        try {
+
+            /* The length of the ship */
+            this.length = length;
+            /* The number of times the ship has been hit */
+            this.hits = 0;
+            /* if it is horizontal is true
+            if it is vertical is false */
+            this.isHorizontal = isHorizontal;
+            /* The rows of the game board */
+            this.startRow = startRow;
+            /* The columns of the game board */
+            this.startCol = startCol;
+        }
+        catch (IllegalArgumentException e) {
+
+            if (length < 1) {
+                System.out.println("Invalid length");
+            } else if(startRow < 0) {
+                System.out.println("Invalid row");
+            } else if(startCol < 0) {
+                System.out.println("Invalid col");
+            }
+        }
     }
 
-
     public boolean isHorizontal() {
-        return isHorizontal;
+        return this.isHorizontal;
     }
 
     public int getLength() {
-        return length;
+        return this.length;
     }
 
     public int getStartCol() {
-        return startCol;
+        return this.startCol;
     }
 
     public int getStartRow() {
-        return startRow;
+        return this.startRow;
     }
 
     public boolean isSunk()
     {
-        return true;
+        return this.hits == this.length;
     }
 
-    public void hit()
-    {
-
+    public void hit() {
+        try {
+            this.hits++;
+        } catch (IllegalStateException e) {
+            if (this.hits > length) {
+                System.out.println("Too many hits");
+            }
+        }
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Ship ship = (Ship) o;
-        return length == ship.length && hits == ship.hits && isHorizontal == ship.isHorizontal && startRow == ship.startRow && startCol == ship.startCol;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(length, hits, isHorizontal, startRow, startCol);
+        boolean isEquals = false;
+        if(o instanceof Ship) {
+            Ship otherShip = (Ship) o;
+            if (length == otherShip.length && startRow == otherShip.startRow &&
+                isHorizontal == otherShip.isHorizontal && startCol == otherShip.startCol) {
+                isEquals = true;
+            }
+        }
+        return isEquals;
     }
 
     @Override
     public String toString() {
-        return "Ship{" +
-                "length=" + length +
-                ", hits=" + hits +
-                ", isHorizontal=" + isHorizontal +
-                ", startRow=" + startRow +
-                ", startCol=" + startCol +
-                '}';
+        return  "length: " + length +
+                "\nLocation: (" + startRow + "," + startCol + ")" +
+                "\nOrientation: " + isHorizontal +
+                "\nhits: " + hits +
+                "\nsunk: " + isSunk();
     }
 }
