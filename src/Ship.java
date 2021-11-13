@@ -57,6 +57,7 @@ public class Ship {
     public boolean isSunk()
     {
         return this.hits == this.length;
+
     }
 
     public void hit() {
