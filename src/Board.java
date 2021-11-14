@@ -58,15 +58,32 @@ public class Board {
         return false;
     }
 
-    public Ship getShip(int x, int y)
-    {
-        Ship obj = null;
-        return obj;
+    public Ship getShip(int row, int col) {
+        if(row < 0 || row >= numberOfRows) {
+            throw new IllegalArgumentException("Invalid row");
+        } else if(col < 0 || col >= numberOfColumns) {
+            throw new IllegalArgumentException("Invalid col");
+        }
+        for (int i = 0; i < ships.length; i++) {
+            if(ships[i].isHorizontal()== true) {
+                if (ships[i].getStartRow() <= row && row <= ships[i].getStartRow()+ships[i].getLength()){
+                    if (ships[i].getStartCol() == col){
+                        return ships[i];
+                    }
+                }
+            } else if(ships[i].isHorizontal() == false) {
+                if (ships[i].getStartCol() <= col && col <= ships[i].getStartCol()+ships[i].getLength()){
+                    if (ships[i].getStartRow() == row){
+                        return ships[i];
+                    }
+                }
+            }
+        }
+        return null;
     }
 
-    public Ship[] getShips()
-    {
-        return this.ships;
+    public Ship[] getShips() {
+        return ships;
     }
 
     public boolean fireAtLocation(int x,int y)
