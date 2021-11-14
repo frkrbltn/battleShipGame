@@ -68,13 +68,13 @@ public class Board {
             if(ships[i].isHorizontal()== true) {
                 if (ships[i].getStartRow() <= row && row <= ships[i].getStartRow()+ships[i].getLength()){
                     if (ships[i].getStartCol() == col){
-                        return ships[i];
+                        return this.ships[i];
                     }
                 }
             } else if(ships[i].isHorizontal() == false) {
                 if (ships[i].getStartCol() <= col && col <= ships[i].getStartCol()+ships[i].getLength()){
                     if (ships[i].getStartRow() == row){
-                        return ships[i];
+                        return this.ships[i];
                     }
                 }
             }
@@ -83,22 +83,51 @@ public class Board {
     }
 
     public Ship[] getShips() {
-        return ships;
+        return this.ships;
     }
 
-    public boolean fireAtLocation(int x,int y)
-    {
-        return true;
+    public boolean fireAtLocation(int row,int col) {
+        if(row < 0 || row >= numberOfRows) {
+            throw new IllegalArgumentException("Invalid row");
+        } else if(col < 0 || col >= numberOfColumns) {
+            throw new IllegalArgumentException("Invalid col");
+        }
+        boolean x = false;
+        if (grid[row][col].hasBeenHit() == false) {
+            grid[row][col].fireAt();
+            x = true;
+        }else if(grid[row][col].hasBeenHit() == true) {
+            x = false;
+        }
+        return x;
     }
 
-    public boolean hasBeenHit(int x,int y)
-    {
-        return true;
+    public boolean hasBeenHit(int row,int col) {
+        if(row < 0 || row >= numberOfRows) {
+            throw new IllegalArgumentException("Invalid row");
+        } else if(col < 0 || col >= numberOfColumns) {
+            throw new IllegalArgumentException("Invalid col");
+        }
+        boolean y = false;
+        if(grid[row][col].hasBeenHit() == false){
+            y = true;
+        } else{
+            y = false;
+        }
+        return y;
     }
 
-    public boolean areAllShipsSunk()
-    {
-        return true;
+    public boolean areAllShipsSunk() {
+        boolean z = false;
+
+        for (int i = 0; i < this.numberOfShips; i++) {
+            if(ships[i].isSunk() == false) {
+                z = true;
+            } else {
+                z = false;
+            }
+        }
+        return z;
     }
 
     @Override
