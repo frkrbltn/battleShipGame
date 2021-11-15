@@ -1,12 +1,13 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 //TODO Javadoc
 public class SquareTest {
 
-    /** Square object */
+    /** Battleship.Square object */
     private Square square;
 
     /**
@@ -51,10 +52,10 @@ public class SquareTest {
         assertTrue(square.equals(otherSquare), "empty square equals another empty square");
         square.fireAt();
         assertFalse(square.equals(otherSquare),
-                "Square with no ship hit compared with square with no ship and not hit");
+                "Battleship.Square with no ship hit compared with square with no ship and not hit");
         otherSquare.fireAt();
         assertTrue(square.equals(otherSquare),
-                "Square with no ship hit compared with another square with no ship and hit");
+                "Battleship.Square with no ship hit compared with another square with no ship and hit");
         assertFalse(square.equals(null), "square compared to null object");
         assertFalse(square.equals("square"), "squared compared to String");
 
@@ -64,10 +65,10 @@ public class SquareTest {
     public void testEqualsShip() {
         // TODO: Replace the fail() statement with the following:
         // Create a ship and add it to the square and then test the equals() method
-        // with another Square without a ship.
-        // Then add the same ship to the other Square and test the equals() method  again.
+        // with another Battleship.Square without a ship.
+        // Then add the same ship to the other Battleship.Square and test the equals() method  again.
         // Then fire at the square and test the equals() method again.
-        // Then fire at the other Square and test the equals() method again.
+        // Then fire at the other Battleship.Square and test the equals() method again.
         fail("No test added");
     }
 
