@@ -4,12 +4,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 // TODO Add javadoc
+
+/**
+ * This test program will prove test methods to
+ * test methods in Ship class
+ * @author Furkan Karabulut
+ */
 public class ShipTest {
 
     /** Ship of length two */
     private Ship shipLengthTwo;
 
     // TODO: Add another ship
+    /** Ship of the length will be three*/
+    private Ship shipLengthThree;
 
     /**
      * Creates fields before each test case is executed
@@ -18,6 +26,7 @@ public class ShipTest {
     public void setUp() {
         shipLengthTwo = new Ship(2, false, 1, 2);
         // TODO construct another ship
+        shipLengthThree = new Ship(3, true, 3, 1);
     }
 
     /**
@@ -26,9 +35,9 @@ public class ShipTest {
     @Test
     public void testGetLength() {
         assertEquals(2, shipLengthTwo.getLength(), "Check length of 2");
-    }
 
-    // TODO Test getLength for added ship
+        assertEquals(3, shipLengthThree.getLength(), "Check length of 3");
+    }
 
     /**
      * Tests isHorizontal method
@@ -36,9 +45,9 @@ public class ShipTest {
     @Test
     public void testIsHorizontal() {
         assertFalse(shipLengthTwo.isHorizontal(), "Check vertical");
-    }
 
-    // TODO Test isHorizontal for added ship
+        assertTrue(shipLengthThree.isHorizontal(), "Check Horizontal");
+    }
 
     /**
      * Tests getStartRow method
@@ -47,9 +56,10 @@ public class ShipTest {
     public void testGetStartRow() {
         assertEquals(1, shipLengthTwo.getStartRow(),
                 "Check start row of ship 2");
-    }
 
-    // TODO Test getStartRow for added ship
+        assertEquals(3, shipLengthThree.getStartRow(),
+                "Check start row of ship 3");
+    }
 
     /**
      * Tests getStartCol method
@@ -58,9 +68,10 @@ public class ShipTest {
     public void testGetStartCol() {
         assertEquals(2, shipLengthTwo.getStartCol(),
                 "Check start col of ship 2");
-    }
 
-    // TODO Test getStartCol for added ship
+        assertEquals(1, shipLengthThree.getStartCol(),
+                "Check start col of ship Three: 1");
+    }
 
     /**
      * Tests isSunk method
@@ -70,9 +81,11 @@ public class ShipTest {
         assertFalse(shipLengthTwo.isSunk(), "Not sunk - Hit: 0 - Ship 2");
         shipLengthTwo.hit();
         assertFalse(shipLengthTwo.isSunk(), "Not sunk - Hit: 1 - Ship 2");
-    }
 
-    // TODO Test isSunk for added ship
+        assertFalse(shipLengthThree.isSunk(), "Not sunk - Hit: 0 - Ship 3");
+        shipLengthTwo.hit();
+        assertFalse(shipLengthThree.isSunk(), "Not sunk - Hit: 1 - Ship 3");
+    }
 
     /**
      * Tests equals method
@@ -82,9 +95,11 @@ public class ShipTest {
         assertTrue(shipLengthTwo.equals(shipLengthTwo), "Equal to itself");
         assertTrue(shipLengthTwo.equals(new Ship(2, false, 1, 2)),
                 "Equal to ship with same parameters");
-    }
 
-    // TODO Test equals for added ship
+        assertTrue(shipLengthThree.equals(shipLengthThree), "Equal to itself");
+        assertTrue(shipLengthThree.equals(new Ship(3, true, 3, 1)),
+                "Equal to ship with same parameters for ship three");
+    }
 
     /**
      * Tests toString method
@@ -95,9 +110,12 @@ public class ShipTest {
                 "Length: 2\n" + "Location: (1,2)\n" + "Orientation: Vertical\n"
                         + "Number of hits: 0\n" + "Sunk: false",
                 shipLengthTwo.toString(), "String for Ship 2");
-    }
 
-    // TODO Test toString for added ship
+        assertEquals(
+                "Length: 3\n" + "Location: (3,1)\n" + "Orientation: Horizontal\n"
+                        + "Number of hits: 0\n" + "Sunk: false",
+                shipLengthThree.toString(), "String for Ship 3");
+    }
 
     /**
      * Tests exceptions
