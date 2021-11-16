@@ -35,9 +35,13 @@ public class BoardTest {
     public void testFireAtLocation() {
         // TODO: Replace the fail() statement with the following:
         // Test fireAtLocation()
-        // Test hasBeenHit() for the location fired at. 
+        // Test hasBeenHit() for the location fired at.
         // Test fireAtLocation() firing at the same location.
-        fail("No test added");
+        assertTrue(board.fireAtLocation(1,1));
+        board.hasBeenHit(1,1);
+        assertTrue(board.hasBeenHit(1,1));
+        board.fireAtLocation(1,1);
+        assertFalse(board.fireAtLocation(1,1));
     }
 
     /**
@@ -71,7 +75,17 @@ public class BoardTest {
         // Test that getShip() for the first ship equals getShips()[0]
         // Test that getShip() for the second ship equals getShips()[1]
         // Test that getShips()[2] is null     
-        fail("No test added");
+        assertTrue(board.addShip(1, false, 3, 5), "Add vertical ship at valid location.");
+        assertFalse(board.addShip(1, false, 3, 5), "Add vertical ship at valid location.");
+        assertTrue(board.addShip(1, false, 4, 4), "Add another vertical ship at valid location.");
+        Ship ship = board.getShip(3, 5);
+        Ship ship2 = board.getShip(4,4);
+        Ship[] ships = board.getShips();
+        assertEquals(ship, ships[0], "Test getShip() and getShips() after ship added at (3, 5)");
+        assertEquals(ship2, ships[1], "Test getShip() and getShips() after ship added at (4, 4)");
+        Ship ship1 = board.getShip(3, 5);
+        assertEquals(null, ships[2], "Test getShip() and getShips() after ship added at (3, 5)");
+
     }
 
     @Test
@@ -82,7 +96,12 @@ public class BoardTest {
         // Test areAllShipsSunk()
         // Fire at added ship until it should be sunk
         // Test areAllShipsSunk()
-        fail("No test added");
+        board.addShip(2, true, 1,1);
+        board.fireAtLocation(1,1);
+        assertFalse(board.areAllShipsSunk());
+        board.fireAtLocation(1,2);
+        assertTrue(board.areAllShipsSunk());
+
     }
 
     /**
@@ -123,7 +142,21 @@ public class BoardTest {
         // Fire at a non-ship location
         // Fire at one location on the ship
         // Test toString()
-        fail("No test added");
+        board.addShip(2, true, 0,0);
+        String exp = "2 2 - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n";
+        assertEquals(exp, board.toString(), "board without hits on the ship");
+        board.fireAtLocation(1, 1);
+        board.fireAtLocation(0, 0);
+        String exp1 = "R 2 - - - - - - -\n" + "- W - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n"
+                + "- - - - - - - - -\n" + "- - - - - - - - -\n";
+        assertEquals(exp1, board.toString(), "board with a hit on the ship and another hit on the empty square");
     }
 
 

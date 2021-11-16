@@ -97,7 +97,7 @@ public class Square {
     /**
      * This method will compare two square object and if they have
      * the same corresponding values it will return correct otherwise false.
-     * @param o is the object is created and it will be compared to the other
+     * @param o is the object is created, and it will be compared to the other
      *          object if they are from the same object type or not
      * @return isEqual will be true if those two objects are the same ot not.
      */
